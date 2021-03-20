@@ -1,0 +1,46 @@
+{
+	"name": "ghost-storage-compressed",
+	"version": "1.0.0",
+	"description": "Local ghost storage adapter to reduce image file size",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Marky_Gee mark@marky-gee.co",
+	"repository": "https://github.com/Marky-Gee/ghost-storage-compressed",
+	"bugs": {
+		"url": "https://github.com/Marky-Gee/ghost-storage-compressed/issues"
+	},
+	"keywords": [
+		"ghost",
+		"blog",
+		"image",
+		"storage",
+		"adapter",
+		"module",
+		"imagemin",
+		"compress"
+	],
+	"license": "ISC",
+	"engines": {
+		"node": "^10.0.0 || ^12.0.0 || ^14.0.0"
+	},
+	"contributors": [
+		{
+			"name": "Mark G",
+			"email": "mark@marky-gee.co"
+		}
+	],
+	"dependencies": {
+		"@tryghost/constants": "^0.1.1",
+		"@tryghost/errors": "^0.2.4",
+		"bluebird": "^3.7.2",
+		"fs-extra": "^9.0.1",
+		"ghost-storage-base": "0.0.5",
+		"imagemin": "^7.0.1",
+		"imagemin-jpegtran": "^7.0.0",
+		"imagemin-pngquant": "^9.0.2",
+		"moment": "^2.29.1",
+		"path": "^0.12.7"
+	}
+}
