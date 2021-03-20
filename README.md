@@ -1,5 +1,9 @@
 # Ghost Storage Compressed
 
+![npm](https://img.shields.io/npm/dt/ghost-storage-compressed.svg)
+
+Ghost Storage compressed allows ghost to compress your images when saving locally
+
 ## Installation
 
 Via NPM
