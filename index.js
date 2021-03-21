@@ -1,6 +1,3 @@
-// # Local File System Image Storage module
-// The (default) module for storing images, using the local file system
-//const serveStatic = require("../../../../core/shared/express").static;
 const serveStatic = require("../../../../current/core/shared/express").static;
 const fs = require("fs-extra");
 const path = require("path");
@@ -19,6 +16,39 @@ class CompressedAdapter extends StorageBase {
 		super(options);
 
 		this.storagePath = config.getContentPath("images");
+		const adapter = options || {};
+		console.log(this.storagePath, adapter);
+
+		let imageminPlugins = [];
+		if (adapter.jpegtran && adapter.jpegtran.active) {
+			const imageminJpegtran = require("imagemin-jpegtran");
+			imageminPlugins.push(imageminJpegtran(adapter.jpegtran));
+		}
+		if (adapter.mozjpeg && adapter.mozjpeg.active) {
+			const imageminMozjpeg = require("imagemin-mozjpeg");
+			imageminPlugins.push(imageminMozjpeg(adapter.mozjpeg));
+		}
+		if (adapter.pngquant && adapter.pngquant.active) {
+			const imageminPngquant = require("imagemin-pngquant");
+			imageminPlugins.push(imageminPngquant(adapter.pngquant));
+		}
+		if (adapter.imageminOptipng && adapter.imageminOptipng.active) {
+			const imageminOptipng = require("imagemin-optipng");
+			imageminPlugins.push(imageminOptipng(adapter.imageminOptipng));
+		}
+		if (adapter.gifsicle && adapter.gifsicle.active) {
+			const imageminGifsicle = require("imagemin-gifsicle");
+			imageminPlugins.push(imageminGifsicle(adapter.gifsicle));
+		}
+		if (adapter.giflossy && adapter.giflossy.active) {
+			const imageminGiflossy = require("imagemin-giflossy");
+			imageminPlugins.push(imageminGiflossy(adapter.giflossy));
+		}
+		if (adapter.webp && adapter.webp.active) {
+			const imageminWebp = require("imagemin-webp");
+			imageminPlugins.push(imageminWebp(adapter.webp));
+		}
+		this.imageminPlugins = imageminPlugins;
 	}
 
 	/**
@@ -75,19 +105,12 @@ class CompressedAdapter extends StorageBase {
 			})
 			.then(() => {
 				const imagemin = require("imagemin");
-				const imageminJpegtran = require("imagemin-jpegtran");
-				const imageminPngquant = require("imagemin-pngquant");
-
 				(async () => {
 					try {
+						const imageminPlugins = this.imageminPlugins;
+						console.log("imageminPlugins", imageminPlugins);
 						const files = await imagemin([image.path], {
-							plugins: [
-								imageminJpegtran({ force: false }),
-								imageminPngquant({
-									force: false,
-									quality: [0.6, 0.8],
-								}),
-							],
+							plugins: imageminPlugins,
 						});
 						fs.writeFile(
 							targetFilename,
@@ -96,7 +119,6 @@ class CompressedAdapter extends StorageBase {
 								if (err) console.log(err);
 							}
 						);
-						//=> [{data: <Buffer 89 50 4e …>, destinationPath: 'build/images/foo.jpg'}, …]
 					} catch (error) {
 						console.log(error);
 					}

@@ -4,6 +4,8 @@
 
 Ghost Storage compressed allows ghost to compress your images when saving locally
 
+Supports : imagemin-giflossy, imagemin-gifsicle, imagemin-jpegtran, imagemin-mozjpeg, imagemin-optipng, imagemin-pngquant, imagemin-webp
+
 ## Installation
 
 Via NPM
@@ -30,6 +32,28 @@ Add this in `config."GHOST_ENVIRONMENT".js` file
 ```
 "storage": {
     "active": "compressed",
-    "compressed": { }
+    "compressed": {
+        "PLUGIN_NAME":{
+            "active":true,
+            "pluginOption":"value"
+        }
+    }
+}
+```
+
+Example config
+
+```
+"storage": {
+    "active": "compressed",
+    "compressed": {
+        "mozjpeg": {
+            "active": true,
+        },
+        "pngquant": {
+            "active": true,
+            "quality": [0.8,0.95]
+        }
+    }
 }
 ```
