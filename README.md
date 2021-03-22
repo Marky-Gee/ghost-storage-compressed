@@ -48,7 +48,7 @@ Example config
     "active": "compressed",
     "compressed": {
         "mozjpeg": {
-            "active": true,
+            "active": true
         },
         "pngquant": {
             "active": true,
