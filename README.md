@@ -21,7 +21,7 @@ Via GIT
 ```
 mkdir -p ./content/adapters/storage/compressed
 cd content/adapters/storage/compressed
-git clone git@github.com:marky-gee/ghost-storage-compressed.git .
+git clone git@github.com:Marky-Gee/ghost-storage-compressed.git .
 npm install
 ```
 

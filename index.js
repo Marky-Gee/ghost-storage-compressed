@@ -105,7 +105,7 @@ class CompressedAdapter extends StorageBase {
 			})
 			.then(() => {
 				const imagemin = require("imagemin");
-				(async () => {
+				return (async () => {
 					try {
 						const imageminPlugins = this.imageminPlugins;
 						console.log("imageminPlugins", imageminPlugins);
